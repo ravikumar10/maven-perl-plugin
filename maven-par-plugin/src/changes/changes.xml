@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+  <properties>
+    <title>Maven Perl packaging plugin</title>
+    <author email="pierre.marguerite@....com">Pierre Marguerite</author>
+  </properties>
+  <body>
+    <release version="1.0" date="2010-04-01" description="First release">
+      <action dev="marguerp" type="fix">
+	Fixed usage of the plugin, previous the plugin groupId was org.apache.maven in order to be found when pom 
+packaging is par.
+      </action>
+    </release>
+     <release version="1.1" date="2010-04-02" description="minor release">
+      <action dev="marguerp" type="fix">
+	unable to deploy artifact
+      </action>
+    </release>
+     <release version="1.2" date="2010-04-08" description="minor release">
+      <action dev="marguerp" type="add">
+		Added support for multiple scripts to package.
+      </action>
+      <action dev="marguerp" type="fix">
+		Fixed PMD, Findbugs warning.
+      </action>
+      <action dev="marguerp" type="fix">
+		Do not call Java compiler in Perl project.
+      </action>
+        <action dev="marguerp" type="update">
+		use correct MOJO parameter annotation
+      </action>
+       <action dev="marguerp" type="fix">
+		Fixed handling of parameters if not existing.
+      </action>
+       <action dev="marguerp" type="fix">
+		Fixed use of additional modules for PP.
+      </action>
+       <action dev="marguerp" type="fix">
+		Fixed handling of multiple time same dependency for packaging.
+      </action>
+      <action dev="marguerp" type="add">
+		Add for unit test.
+      </action>
+        <action dev="marguerp" type="fix">
+		Use ${project.build.moduleBuildDirectory} for copying modules and libraries.
+      </action>
+       <action dev="marguerp" type="add">
+		Allow to configure environment variable for running test.
+      </action>
+       <action dev="marguerp" type="add">
+		Add support for maven.test.skip property.
+      </action>
+      <action dev="marguerp" type="fix">
+      	Fixed null pointer when no test module found in a directory.       
+      </action>
+	 <action dev="marguerp" type="add">
+        Add support in configuration  additional data files in generated par file.
+      </action>
+      <action dev="marguerp" type="add">
+         Set executable extracted file from par file, if it has one of the following extension: pl, sh, py.
+      </action>
+    </release>
+  </body>
+</document>
+ 

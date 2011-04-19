@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: olamy
+Build-Jdk: 1.4.2_15
+Specification-Title: Maven Jar Plugin
+Specification-Version: 2.2
+Specification-Vendor: The Apache Software Foundation
+Implementation-Title: Maven Jar Plugin
+Implementation-Version: 2.2
+Implementation-Vendor-Id: org.apache.maven.plugins
+Implementation-Vendor: The Apache Software Foundation
+
