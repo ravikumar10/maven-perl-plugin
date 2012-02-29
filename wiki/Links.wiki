@@ -1,0 +1,3 @@
+#Useful link for Maven plugin development
+
+ * http://maven.apache.org/developers/mojo-api-specification.html
