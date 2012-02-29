@@ -1,0 +1,96 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+{{{<?xml version="1.0" encoding="UTF-8"?>
+<component-set>
+	<components>
+		<component>
+			<role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+			<!--
+				We want to look this up by dependency-type and POM packaging 'par'
+			-->
+			<role-hint>perl-par</role-hint>
+			<implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler
+			</implementation>
+			<configuration>
+				<!--
+					This should always be consistent with the role-hint, to be safe.
+				-->
+				<type>perl-par</type>
+				<extension>par</extension>
+				<packaging>perl-par</packaging>
+				<language>perl</language>
+			</configuration>
+		</component>
+
+		<component>
+			<role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+			<role-hint>perl-par</role-hint>
+			<implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping
+			</implementation>
+			<configuration>
+				<lifecycles>
+					<lifecycle>
+						<id>default</id>
+
+						<phases>
+							<!--
+								<initialize>
+								fr.biomerieux.bip.plugins:maven-par-plugin:${project.version}:inject-artifact-handler
+								</initialize>
+							-->
+							<process-resources>org.apache.maven.plugins:maven-resources-plugin:resources
+							</process-resources>
+							<!--
+								<compile>org.apache.maven.plugins:maven-compiler-plugin:compile
+								</compile>
+							-->
+							<!--
+								<process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
+								<test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
+								<test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+							-->
+							<!-- perl test running should go here -->
+							<test>fr.biomerieux.bip.plugins:maven-par-plugin:${project.version}:test
+							</test>
+							<package>fr.biomerieux.bip.plugins:maven-par-plugin:${project.version}:par
+							</package>
+							<install>org.apache.maven.plugins:maven-install-plugin:install
+							</install>
+							<deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy
+							</deploy>
+						</phases>
+					</lifecycle>
+				</lifecycles>
+			</configuration>
+		</component>
+		<component>
+			<role>org.codehaus.plexus.archiver.Archiver</role>
+			<role-hint>par</role-hint>
+			<implementation>org.codehaus.plexus.archiver.jar.JarArchiver
+			</implementation>
+			<instantiation-strategy>per-lookup</instantiation-strategy>
+		</component>
+
+		<component>
+			<role>org.codehaus.plexus.archiver.UnArchiver</role>
+			<role-hint>par</role-hint>
+			<implementation>org.codehaus.plexus.archiver.zip.ZipUnArchiver
+			</implementation>
+			<instantiation-strategy>per-lookup</instantiation-strategy>
+		</component>
+	</components>
+</component-set>
+
+}}}
