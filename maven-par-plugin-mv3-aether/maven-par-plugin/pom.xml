@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.googlecode.maven.plugins</groupId>
-	<artifactId>maven-par-plugin</artifactId>
+	<artifactId>maven-perl-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>2.0-SNAPSHOT</version>
 	<name>perl-packaging Maven Mojo</name>
 	<inceptionYear>2009</inceptionYear>
 
 	<description>Plugin for Perl project lifecycle: using PAR::Packer for the packaging</description>
 
 	<prerequisites>
-		<maven>2.2.1</maven>
+		<maven>3.0.3</maven>
 	</prerequisites>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk-version>1.6</jdk-version>
 		<wagon.version>1.0-beta-6</wagon.version>
-		<maven.version.min>2.2.1</maven.version.min>
+		<maven.version.min>3.0.3</maven.version.min>
+		<aether.version>1.11</aether.version>
 	</properties>
 	<developers>
 		<developer>
@@ -33,6 +35,7 @@
 	</developers>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-plugin-api</artifactId>
@@ -41,12 +44,22 @@
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-project</artifactId>
-			<version>${maven.version.min}</version>
+			<version>3.0-alpha-2</version><!--  ${maven.version.min}</version>-->
+		</dependency>
+		<dependency>
+			<groupId>org.sonatype.aether</groupId>
+			<artifactId>aether-api</artifactId>
+			<version>${aether.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sonatype.aether</groupId>
+			<artifactId>aether-util</artifactId>
+			<version>${aether.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>4.8.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -54,56 +67,42 @@
 			<artifactId>maven-archiver</artifactId>
 			<version>2.4.1</version>
 		</dependency>
-		<dependency>
+		<!--
+			<dependency> <groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-archiver</artifactId> <version>1.0</version>< !-
+			-1.0-alpha-9 - - > <exclusions> <exclusion>
 			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-archiver</artifactId>
-			<version>1.0</version><!--1.0-alpha-9 -->
-			<exclusions>
-				<exclusion>
-					<groupId>org.codehaus.plexus</groupId>
-					<artifactId>plexus-container-default</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.codehaus.plexus</groupId>
-					<artifactId>plexus-component-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
+			<artifactId>plexus-container-default</artifactId> </exclusion>
+			<exclusion> <groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-component-api</artifactId> </exclusion>
+			</exclusions> </dependency> <dependency>
 			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-io</artifactId>
-			<version>1.0</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.codehaus.plexus</groupId>
-					<artifactId>plexus-container-default</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.codehaus.plexus</groupId>
-					<artifactId>plexus-component-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+			<artifactId>plexus-io</artifactId> <version>1.0</version>
+			<exclusions> <exclusion> <groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-container-default</artifactId> </exclusion>
+			<exclusion> <groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-component-api</artifactId> </exclusion>
+			</exclusions> </dependency>
+		-->
 		<dependency>
-			<groupId>org.apache.commons</groupId>
+			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>1.3.2</version>
+			<version>2.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.5</version>
+			<version>2.6</version>
 		</dependency>
+		<!--
+			<dependency> <groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId> <version>2.0.5</version>
+			</dependency>
+		-->
 		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-utils</artifactId>
-			<version>2.0.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven.shared</groupId>
+			<groupId>org.apache.maven.plugin-testing</groupId>
 			<artifactId>maven-plugin-testing-harness</artifactId>
-			<version>1.1</version>
-			<scope>test</scope>
+			<version>1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven.shared</groupId>
@@ -115,8 +114,55 @@
 			<artifactId>castor-xml</artifactId>
 			<version>1.3.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.sonatype.aether</groupId>
+			<artifactId>aether-impl</artifactId>
+			<version>${aether.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sonatype.aether</groupId>
+			<artifactId>aether-connector-file</artifactId>
+			<version>${aether.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sonatype.aether</groupId>
+			<artifactId>aether-connector-asynchttpclient</artifactId>
+			<version>${aether.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sonatype.aether</groupId>
+			<artifactId>aether-connector-wagon</artifactId>
+			<version>${aether.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-aether-provider</artifactId>
+			<version>${maven.version.min}</version>
+		</dependency>
+		<!--
+			Due to the Maven 2.0.4 prerequisites. By default,
+			maven-plugin-test-plugin uses 2.0.1
+		-->
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-embedder</artifactId>
+			<version>${maven.version.min}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-core</artifactId>
+			<version>${maven.version.min}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--
+			<dependency> <groupId>org.apache.maven.shared</groupId>
+			<artifactId>maven-plugin-testing-harness</artifactId>
+			<version>2.0-alpha-1</version> <scope>test</scope> </dependency>
+		-->
 	</dependencies>
-	
+
 	<build>
 		<extensions>
 			<extension>
@@ -132,11 +178,11 @@
 					<artifactId>maven-eclipse-plugin</artifactId>
 					<version>2.8</version>
 				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
+				<!--
+					<plugin> <groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.5</version>
-				</plugin>
+					<version>2.8.1</version> </plugin>
+				-->
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>dashboard-maven-plugin</artifactId>
@@ -145,43 +191,57 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>2.0</version>
+					<version>2.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-plugin-plugin</artifactId>
-					<version>2.6</version>
+					<version>2.7</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>2.1.1</version>
+					<version>2.2</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>2.3.1</version>
+					<version>2.3.2</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>sonar-maven-plugin</artifactId>
 					<version>1.0-beta-1</version>
 				</plugin>
- 	            <plugin>
-		            <groupId>org.apache.maven.plugins</groupId>
-        	        <artifactId>maven-javadoc-plugin</artifactId> 
-                    <version>2.6.1</version>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.6.1</version>
 				</plugin>
 				<plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.5</version>
-                </plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.5</version>
+				</plugin>
 				<plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>2.1.2</version>
-                 </plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.1.2</version>
+				</plugin>
+<!--				<plugin>-->
+<!--					<groupId>org.apache.maven.plugins</groupId>-->
+<!--					<artifactId>maven-it-plugin</artifactId>-->
+<!--					<version>1.0-alpha-1-SNAPSHOT</version>-->
+<!---->
+<!--				</plugin>-->
+
+				<!-- Testing the result of the it pom.xml -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.8.1</version>
+					
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -223,10 +283,7 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-plugin-plugin</artifactId>
@@ -239,6 +296,67 @@
 					</execution>
 				</executions>
 			</plugin>
+			 <!-- Testing the result of the it pom.xml -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                   
+                    <executions>
+                        <execution>
+                            <id>it-test</id>
+                            <phase>integration-test</phase>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                            <configuration>
+                                <includes>
+                                    <include>**/*TestIt.class</include>
+                                </includes>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-it-plugin</artifactId>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <id>pre-it-test</id>-->
+<!--                            <phase>pre-integration-test</phase>-->
+<!--                            <goals>-->
+<!--                                <goal>stage</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                        <execution>-->
+<!--                            <id>post-it-test</id>-->
+<!--                            <phase>post-integration-test</phase>-->
+<!--                            <goals>-->
+<!--                                <goal>unstage</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                </plugin>-->
+                <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>animal-sniffer-maven-plugin</artifactId>
+        <version>1.6</version>
+        <configuration>
+          <signature>
+            <groupId>org.codehaus.mojo.signature</groupId>
+            <artifactId>java15</artifactId>
+            <version>1.0</version>
+          </signature>
+        </configuration>
+        <executions>
+          <execution>
+            <id>check-java-1.5-compat</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 		</plugins>
 		<resources>
 			<resource>
@@ -271,13 +389,13 @@
 		<system></system>
 		<url></url>
 	</issueManagement>
-	
-    <reporting>
+
+	<reporting>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changes-plugin</artifactId>
-				<version>2.3</version>
+				<version>2.4</version>
 				<reportSets>
 					<reportSet>
 						<reports>
@@ -295,13 +413,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
-				<version>2.1</version>
+				<version>2.2</version>
 			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.6.1</version>
+				<version>2.8</version>
 				<configuration>
 					<links>
 						<link>http://java.sun.com/javase/6/docs/api/</link>
@@ -311,7 +429,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>2.4</version>
+				<version>2.5</version>
 				<configuration>
 					<rulesets>
 						<ruleset>/rulesets/basic.xml</ruleset>
@@ -325,7 +443,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>2.3.2</version>
 				<configuration>
 					<xmlOutput>true</xmlOutput>
 				</configuration>
@@ -333,7 +451,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.3</version>
+				<version>2.5</version>
 				<configuration>
 					<forkMode>pertest</forkMode>
 					<argLine>-Xmx512m -XX:MaxPermSize=256m</argLine>
@@ -358,14 +476,14 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>clirr-maven-plugin</artifactId>
-				<version>2.2.2</version>
+				<version>2.3</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>taglist-maven-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
-					
+
 					<tagListOptions>
 						<tagClasses>
 							<tagClass>
@@ -408,7 +526,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>2.1.2</version>
+				<version>2.3.1</version>
 				<reportSets>
 					<reportSet>
 						<reports>
@@ -430,7 +548,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-plugin-plugin</artifactId>
-				<version>2.6</version>
+				<version>2.7</version>
 			</plugin>
 		</plugins>
 	</reporting>
@@ -484,6 +602,44 @@
 				</plugins>
 			</build>
 		</profile>
+		
+    <profile>
+      <id>run-its</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-invoker-plugin</artifactId>
+            <version>1.5</version>
+            <configuration>
+              <debug>false</debug>
+              <projectsDirectory>src/it</projectsDirectory>
+              <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+              <pomIncludes>
+                <pomInclude>*/pom.xml</pomInclude>
+              </pomIncludes>
+              <preBuildHookScript>setup</preBuildHookScript>
+              <postBuildHookScript>verify</postBuildHookScript>
+              <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+              <settingsFile>src/it/settings.xml</settingsFile>
+              <goals>
+                <goal>clean</goal>
+                <goal>validate</goal>
+              </goals>
+            </configuration>
+            <executions>
+              <execution>
+                <id>integration-test</id>
+                <goals>
+                  <goal>install</goal>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+ 
 	</profiles>
 	<pluginRepositories>
 		<pluginRepository>
@@ -498,5 +654,5 @@
 			<url>http://repository.apache.org/snapshots/</url>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 </project>
