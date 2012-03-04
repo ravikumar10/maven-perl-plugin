@@ -230,8 +230,10 @@ public class PerlPackageMojo extends AbstractMojo {
 
       libPaths.add(this.libBuildDirectory.getAbsolutePath());
       
-    libPaths.addAll( depManager.extractProjectDependencies(this.project,
-          this.libBuildDirectory, false, null));
+      Collection<String> directories = depManager.extractProjectDependencies(
+          this.project, this.libBuildDirectory, false, null);
+      if (directories != null)
+        libPaths.addAll(directories);
 
       depManager.copyProjectModules(this.moduleDirectory, this.moduleBuildDirectory);
 

@@ -263,8 +263,11 @@ public class PerlTestMojo extends AbstractMojo {
         String testLibBuildDirAbsolutePath = this.testLibBuildDirectory.getAbsolutePath();
         libPaths.add(testLibBuildDirAbsolutePath);
         
-        libPaths.addAll( depManager.extractProjectDependencies(this.project,
-            this.libBuildDirectory, true, this.testLibBuildDirectory));
+        Collection<String> directories = depManager.extractProjectDependencies(
+            this.project, this.libBuildDirectory, true,
+            this.testLibBuildDirectory);
+        if (directories != null)
+          libPaths.addAll(directories);
 
         depManager.copyProjectModules(this.moduleDirectory, this.moduleBuildDirectory);
         depManager.copyProjectModules(this.testModuleDirectory, this.testModuleBuildDirectory);
