@@ -126,7 +126,16 @@ public abstract class AMavenCLIRunner implements ICommandRunner {
         if (returnValue == EXEC_NOT_FOUND_ERROR_CODE) {
           throw new NonExistingProgramException();
         }
-        throw new ErrorCodeCommandExecutionException(returnValue);
+        /*
+         * TODO: logError() messages in StreamConsumer's above may not reach
+         * console before this exception explodes: added cl.toString() below so
+         * user sees full shell command that failed, can then reproduce
+         * manually, fix the issue, etc. To reproduce 120304 error which
+         * motivated this change, delete any TestRunner.pl in project workspace
+         * and run 'mvn perl:test'.
+         */
+        throw new ErrorCodeCommandExecutionException(cl.toString()
+            + " (returned " + returnValue + ")");
       }
 
     } catch (CommandLineException e) {
